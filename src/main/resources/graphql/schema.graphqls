@@ -7,3 +7,16 @@ type UserEntity {
     id: ID!
     name: String!
 }
+
+type Post {
+    id: ID!
+    authorUserId: Int!
+    text: String!
+}
+
+type Comment {
+    id: ID!
+    postId: Int!
+    authorUserId: Int!
+    text: String!
+}
