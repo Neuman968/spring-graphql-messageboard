@@ -1,6 +1,12 @@
 type Query {
-    userRepositories : [UserEntity]
-    userRepository(id: ID!) : UserEntity
+    getUsers : [UserEntity]
+    getUser(id: ID!) : UserEntity
+
+    getPosts: [Post]
+    getPost(id: ID!) : Post
+
+    getComments: [Comment]
+    getComment(id: ID!) : Comment
 }
 
 type UserEntity {

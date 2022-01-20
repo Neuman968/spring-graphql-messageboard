@@ -1,9 +1,11 @@
 package com.demographqlspring.messageboard.post
 
+import com.demographqlspring.messageboard.user.UserEntity
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
+import javax.persistence.Transient
 
 @Entity
 @Table(name = "post")
