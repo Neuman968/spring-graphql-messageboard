@@ -24,5 +24,6 @@ type Comment {
     id: ID!
     postId: Int!
     authorUserId: Int!
+    authorUser: UserEntity!
     text: String!
 }
