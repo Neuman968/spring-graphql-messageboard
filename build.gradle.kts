@@ -6,6 +6,8 @@ plugins {
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.10"
 	kotlin("plugin.jpa") version "1.6.10"
+	kotlin("kapt") version "1.6.10"
+	idea
 }
 
 group = "com.demo-graphql-spring"
@@ -36,10 +38,13 @@ dependencies {
 	testImplementation("org.springframework:spring-webflux")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
 
-	annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jpa",
-	"org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final",
-	"javax.annotation:javax.annotation-api")
+//	kapt("com.querydsl:querydsl-apt:4.4.0:jpa")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+	kapt("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
+	kapt("javax.annotation:javax.annotation-api")
 }
+
+
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
@@ -51,3 +56,17 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+idea {
+	module {
+		val kaptMain = file("build/generated/source/kapt/main")
+		sourceDirs = sourceDirs.plus(kaptMain)
+		generatedSourceDirs = generatedSourceDirs.plus(kaptMain)
+	}
+}
+
+//kapt {
+//	arguments {
+//		arg("querydsl.entityAccessors", "true")
+//	}
+//}

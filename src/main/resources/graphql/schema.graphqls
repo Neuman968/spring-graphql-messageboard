@@ -1,0 +1,9 @@
+type Query {
+    userRepositories : [UserEntity]
+    userRepository(id: ID!) : UserEntity
+}
+
+type UserEntity {
+    id: ID!
+    name: String!
+}
