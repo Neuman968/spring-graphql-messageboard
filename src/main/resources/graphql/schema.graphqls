@@ -17,12 +17,14 @@ type UserEntity {
 type Post {
     id: ID!
     authorUserId: Int!
+    authorUser: UserEntity!
     text: String!
 }
 
 type Comment {
     id: ID!
     postId: Int!
+    post: Post!
     authorUserId: Int!
     authorUser: UserEntity!
     text: String!

@@ -1,5 +1,6 @@
 package com.demographqlspring.messageboard.comment
 
+import com.demographqlspring.messageboard.post.Post
 import com.demographqlspring.messageboard.user.UserEntity
 import javax.persistence.*
 
@@ -30,6 +31,10 @@ class Comment {
     @ManyToOne
     @JoinColumn(name = "authorUserId", referencedColumnName = "id", insertable = false, updatable = false)
     lateinit var authorUser: UserEntity
+
+    @ManyToOne
+    @JoinColumn(name = "postId", referencedColumnName = "id", insertable = false, updatable = false)
+    lateinit var post: Post
 
     @Column
     lateinit var text: String

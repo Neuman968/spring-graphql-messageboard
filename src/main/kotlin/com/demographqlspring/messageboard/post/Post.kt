@@ -1,11 +1,7 @@
 package com.demographqlspring.messageboard.post
 
 import com.demographqlspring.messageboard.user.UserEntity
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
-import javax.persistence.Transient
+import javax.persistence.*
 
 @Entity
 @Table(name = "post")
@@ -27,5 +23,9 @@ class Post {
 
     @Column
     lateinit var text: String
+
+    @ManyToOne
+    @JoinColumn(name = "authorUserId", referencedColumnName = "id", insertable = false, updatable = false)
+    lateinit var authorUser: UserEntity
 
 }
