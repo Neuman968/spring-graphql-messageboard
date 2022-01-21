@@ -27,7 +27,7 @@ open class Post {
 //    @ManyToOne
 //    @JoinColumn(name = "authorUserId", referencedColumnName = "id", insertable = false, updatable = false)
     @Transient
-    open lateinit var authorUser: UserEntity
+    lateinit var authorUser: UserEntity
 
 
     override fun equals(other: Any?): Boolean {

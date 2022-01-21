@@ -28,12 +28,15 @@ class Comment {
     @Column
     var authorUserId: Int = 0
 
-    @ManyToOne
-    @JoinColumn(name = "authorUserId", referencedColumnName = "id", insertable = false, updatable = false)
+    //    @ManyToOne
+//    @JoinColumn(name = "authorUserId", referencedColumnName = "id", insertable = false, updatable = false)
+    @Transient
     lateinit var authorUser: UserEntity
 
-    @ManyToOne
-    @JoinColumn(name = "postId", referencedColumnName = "id", insertable = false, updatable = false)
+//    @ManyToOne
+//    @JoinColumn(name = "postId", referencedColumnName = "id", insertable = false, updatable = false)
+
+    @Transient
     lateinit var post: Post
 
     @Column
