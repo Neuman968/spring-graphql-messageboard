@@ -3,7 +3,6 @@ type Query {
     getUser(id: ID!) : UserEntity
 
     getPosts: [Post]
-    getPost(id: ID!) : Post
 
     getComments: [Comment]
     getComment(id: ID!) : Comment
