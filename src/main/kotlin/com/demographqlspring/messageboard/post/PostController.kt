@@ -3,7 +3,6 @@ package com.demographqlspring.messageboard.post
 import com.demographqlspring.messageboard.user.UserEntity
 import com.demographqlspring.messageboard.user.UserRepository
 import org.dataloader.DataLoader
-import org.springframework.graphql.data.method.annotation.BatchMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.graphql.data.method.annotation.SchemaMapping
 import org.springframework.graphql.execution.BatchLoaderRegistry
@@ -18,8 +17,8 @@ class PostController(
     val postRepository: PostRepository
 ) {
     init {
-        batchLoaderRegistry.forTypePair(Int::class.java, UserEntity::class.java).registerMappedBatchLoader { ids, env ->
-                Mono.just(userRepository.findAllByIdIn(ids).associateBy { it.id })
+        batchLoaderRegistry.forTypePair(Int::class.java, UserEntity::class.java).registerMappedBatchLoader { ids, _ ->
+            Mono.just(userRepository.findAllByIdIn(ids).associateBy { it.id })
         }
     }
 
@@ -27,10 +26,10 @@ class PostController(
     fun getPosts(): List<Post> = postRepository.findAll().toList()
 
     @SchemaMapping
-    fun authorUser(post: Post, loader: DataLoader<Int, UserEntity>): CompletableFuture<UserEntity>? {
-        return loader.load(post.authorUserId)
-    }
+    fun authorUser(post: Post, loader: DataLoader<Int, UserEntity>): CompletableFuture<UserEntity>? =
+        loader.load(post.authorUserId)
 
+    // todo does not work for some mysterious reason...
 //    @BatchMapping
 //    fun authorUser(posts: List<Post>): Mono<Map<Post, UserEntity>> {
 //        val authors = userRepository.findAllByIdIn(posts.map { it.authorUserId }.toSet())
