@@ -3,7 +3,8 @@ package com.demographqlspring.messageboard.post
 import com.demographqlspring.messageboard.user.UserEntity
 import com.demographqlspring.messageboard.user.UserRepository
 import org.dataloader.DataLoader
-import org.springframework.graphql.data.method.annotation.BatchMapping
+import org.springframework.graphql.data.method.annotation.Argument
+import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.graphql.data.method.annotation.SchemaMapping
 import org.springframework.graphql.execution.BatchLoaderRegistry
@@ -24,9 +25,14 @@ open class PostController(
     }
 
     @QueryMapping
-    fun getPosts(): List<Post>  {
-        return postRepository.findAll().toList()
-    }
+    fun getPosts(): List<Post>  = postRepository.findAll().toList()
+
+    @MutationMapping
+    fun addPost(@Argument add: AddNewPostInput): Post = postRepository.save(Post().apply {
+        this.text = add.text ?: ""
+        // We assume you are logged in as user 1 :)
+        this.authorUserId = 1
+    })
 
     @SchemaMapping
     fun authorUser(post: Post, loader: DataLoader<Int, UserEntity>): CompletableFuture<UserEntity>? =

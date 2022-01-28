@@ -1,9 +1,6 @@
 package com.demographqlspring.messageboard.user
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "user")
@@ -17,6 +14,7 @@ class UserEntity {
     }
 
     @Id
+    @GeneratedValue
     var id: Int = 0
 
     @Column

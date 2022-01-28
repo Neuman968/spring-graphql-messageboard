@@ -8,6 +8,10 @@ type Query {
     getComment(id: ID!) : Comment
 }
 
+type Mutation {
+    addPost(add: AddNewPostInput!): Post!
+}
+
 type UserEntity {
     id: ID!
     name: String!
@@ -17,6 +21,10 @@ type Post {
     id: ID!
     authorUserId: Int!
     authorUser: UserEntity!
+    text: String!
+}
+
+input AddNewPostInput {
     text: String!
 }
 

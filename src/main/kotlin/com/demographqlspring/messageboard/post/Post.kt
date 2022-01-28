@@ -16,6 +16,7 @@ open class Post {
     }
 
     @Id
+    @GeneratedValue
     var id: Int = 0
 
     @Column

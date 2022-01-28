@@ -20,6 +20,7 @@ class Comment {
     }
 
     @Id
+    @GeneratedValue
     var id: Int = 0
 
     @Column
