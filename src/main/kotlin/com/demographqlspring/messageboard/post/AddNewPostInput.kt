@@ -1,5 +1,5 @@
 package com.demographqlspring.messageboard.post
 
-class AddNewPostInput(
-    val text: String?
+data class AddNewPostInput(
+    val text: String
 )

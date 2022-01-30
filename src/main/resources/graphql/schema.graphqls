@@ -10,6 +10,7 @@ type Query {
 
 type Mutation {
     addPost(add: AddNewPostInput!): Post!
+    addComment(add: AddNewCommentInput!): Comment!
 }
 
 type UserEntity {
@@ -25,6 +26,11 @@ type Post {
 }
 
 input AddNewPostInput {
+    text: String!
+}
+
+input AddNewCommentInput {
+    postId: Int!
     text: String!
 }
 
