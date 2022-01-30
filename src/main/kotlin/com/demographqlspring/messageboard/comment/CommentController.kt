@@ -5,6 +5,7 @@ import com.demographqlspring.messageboard.exception.AppException
 import com.demographqlspring.messageboard.post.Post
 import com.demographqlspring.messageboard.post.PostRepository
 import com.demographqlspring.messageboard.user.UserEntity
+import graphql.GraphqlErrorException
 import org.dataloader.DataLoader
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.graphql.data.method.annotation.Argument
@@ -39,7 +40,7 @@ class CommentController(
             text = add.text
             authorUserId = 1 // assume we are user 1.
         })
-    } ?: throw AppException.of(AppError("NOT_FOUND", "Post: ${add.postId} was not found"))
+    } ?: throw AppException.of(AppError( "Post: ${add.postId} was not found"))
 
     @SchemaMapping
     fun post(comment: Comment, loader: DataLoader<Int, Post>): CompletableFuture<Post>? = loader.load(comment.postId)
