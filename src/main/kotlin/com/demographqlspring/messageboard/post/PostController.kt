@@ -1,8 +1,12 @@
 package com.demographqlspring.messageboard.post
 
+import com.demographqlspring.messageboard.comment.Comment
+import com.demographqlspring.messageboard.comment.CommentRepository
+import com.demographqlspring.messageboard.comment.QComment
 import com.demographqlspring.messageboard.user.UserEntity
 import com.demographqlspring.messageboard.user.UserRepository
 import org.dataloader.DataLoader
+import org.springframework.data.domain.Pageable
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
@@ -16,7 +20,8 @@ import java.util.concurrent.CompletableFuture
 open class PostController(
     val batchLoaderRegistry: BatchLoaderRegistry,
     val userRepository: UserRepository,
-    val postRepository: PostRepository
+    val postRepository: PostRepository,
+    val commentRepository: CommentRepository,
 ) {
     init {
         batchLoaderRegistry.forTypePair(Int::class.java, UserEntity::class.java).registerMappedBatchLoader { ids, _ ->
@@ -25,7 +30,7 @@ open class PostController(
     }
 
     @QueryMapping
-    fun getPosts(): List<Post>  = postRepository.findAll().toList()
+    fun getPosts(): List<Post> = postRepository.findAll().toList()
 
     @MutationMapping
     fun addPost(@Argument add: AddNewPostInput): Post = postRepository.save(Post().apply {
@@ -37,6 +42,12 @@ open class PostController(
     @SchemaMapping
     fun authorUser(post: Post, loader: DataLoader<Int, UserEntity>): CompletableFuture<UserEntity>? =
         loader.load(post.authorUserId)
+
+    @SchemaMapping
+    fun comments(post: Post, @Argument limit: Int): List<Comment> = commentRepository.findAll(
+            QComment.comment.postId.eq(post.id),
+            Pageable.ofSize(limit)
+        ).toList()
 
     // todo does not work for some mysterious reason...
 //    @BatchMapping

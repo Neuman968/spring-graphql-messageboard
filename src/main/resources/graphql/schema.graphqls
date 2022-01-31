@@ -23,6 +23,7 @@ type Post {
     authorUserId: Int!
     authorUser: UserEntity!
     text: String!
+    comments(limit: Int!): [Comment!]!
 }
 
 input AddNewPostInput {

@@ -1,5 +1,6 @@
 package com.demographqlspring.messageboard.post
 
+import com.demographqlspring.messageboard.comment.Comment
 import com.demographqlspring.messageboard.user.UserEntity
 import javax.persistence.*
 
@@ -30,6 +31,8 @@ open class Post {
     @Transient
     lateinit var authorUser: UserEntity
 
+    @Transient
+    lateinit var comments: List<Comment>
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
