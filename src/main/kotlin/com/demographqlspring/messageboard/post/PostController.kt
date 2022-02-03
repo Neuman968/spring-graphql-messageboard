@@ -46,15 +46,6 @@ open class PostController(
     @SchemaMapping
     fun comments(post: Post, @Argument limit: Int): List<Comment> = commentRepository.findAll(
             QComment.comment.postId.eq(post.id),
-            Pageable.ofSize(limit)
+            Pageable.ofSize(limit),
         ).toList()
-
-    // todo does not work for some mysterious reason...
-//    @BatchMapping
-//    open fun authorUser(posts: List<Post>): Mono<Map<Post, UserEntity>> {
-//        val authors = userRepository.findAllByIdIn(posts.map { it.authorUserId }.toSet())
-//        return Mono.just(posts.associateWith {
-//            authors.first { author -> it.authorUserId == author.id }
-//        })
-//    }
 }

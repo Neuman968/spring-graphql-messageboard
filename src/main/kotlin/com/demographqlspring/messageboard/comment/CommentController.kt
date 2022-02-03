@@ -33,6 +33,13 @@ class CommentController(
     @QueryMapping
     fun getComments(): List<Comment> = commentRepository.findAll().toList()
 
+    @QueryMapping
+    fun getComment(@Argument id: Int): Comment? = commentRepository.findByIdOrNull(id)
+
+    @QueryMapping
+    fun getPostComments(@Argument postId: Int): Iterable<Comment> =
+        commentRepository.findAll(QComment.comment.postId.eq(postId))
+
     @MutationMapping
     fun addComment(@Argument add: AddNewCommentInput): Comment = postRepository.findByIdOrNull(add.postId)?.let { post ->
         commentRepository.save(Comment().apply {

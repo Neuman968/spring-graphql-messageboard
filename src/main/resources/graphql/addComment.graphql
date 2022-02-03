@@ -1,0 +1,10 @@
+mutation addComment($add: AddNewCommentInput!) {
+    addComment(add: $add) {
+        id
+        text
+        post {
+            id
+            text
+        }
+    }
+}

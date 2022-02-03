@@ -5,12 +5,13 @@ type Query {
     getPosts: [Post]
 
     getComments: [Comment]
-    getComment(id: ID!) : Comment
+    getComment(id: ID!): Comment
+    getPostComments(postId: ID!) : [Comment]
 }
 
 type Mutation {
-    addPost(add: AddNewPostInput!): Post!
-    addComment(add: AddNewCommentInput!): Comment!
+    addPost(add: AddNewPostInput!): Post
+    addComment(add: AddNewCommentInput!): Comment
 }
 
 type UserEntity {
