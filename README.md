@@ -1,6 +1,8 @@
 # Spring-Graphql JPA Sample Application
 
-![example workflow](https://github.com/Neuman968/spring-graphql-messageboard/actions/workflows/ci.yml/badge.svg)
+![build status](https://github.com/Neuman968/spring-graphql-messageboard/actions/workflows/ci.yml/badge.svg)
+
+[![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 
  This project aims to be an example project using spring-graphql with a modest JPA data model.
  
