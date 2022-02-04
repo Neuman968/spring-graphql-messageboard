@@ -15,7 +15,7 @@ To run, simply run
 ./gradlew bootRun
 ```
 
-The application server will run on post **8811** but can be changed by updating the _server.port_ inside of _src/main/resources/application.properties_
+The application server will run on post **8811** 
 By default, query logging and Hibernate statistics are turned on in order to visualize some of the performance benefits that
 can be found using Data Loaders/Data Fetchers. This also demonstrates how N+1 problems can be avoided.
 
