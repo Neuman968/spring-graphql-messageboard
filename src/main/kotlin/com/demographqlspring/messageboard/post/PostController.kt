@@ -32,6 +32,9 @@ open class PostController(
     @QueryMapping
     fun getPosts(): List<Post> = postRepository.findAll().toList()
 
+    @QueryMapping
+    fun getUserPosts(@Argument userId: Int): List<Post> = postRepository.findAllByAuthorUserId(userId)
+
     @MutationMapping
     fun addPost(@Argument add: AddNewPostInput): Post = postRepository.save(Post().apply {
         this.text = add.text ?: ""

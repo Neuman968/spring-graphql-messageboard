@@ -6,4 +6,6 @@ import org.springframework.graphql.data.GraphQlRepository
 
 interface PostRepository : CrudRepository<Post, Int>, QuerydslPredicateExecutor<Post> {
     fun findAllByIdIn(ids: Set<Int>): List<Post>
+
+    fun findAllByAuthorUserId(userId: Int): List<Post>
 }
