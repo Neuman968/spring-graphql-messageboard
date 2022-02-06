@@ -1,0 +1,14 @@
+query getUserPosts($userId: Int!) {
+    getUserPosts(userId: $userId) {
+        id
+        text
+        comments(limit: 10) {
+            id
+            text
+            authorUser {
+                id
+                name
+            }
+        }
+    }
+}

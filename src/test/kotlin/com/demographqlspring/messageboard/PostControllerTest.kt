@@ -116,4 +116,24 @@ class PostControllerTest {
             "saved post had incorrect text, was ${savedPost?.text}"
         }
     }
+
+    @Test
+    fun `test get users post passing user expecting posts returned`() {
+        val posts = graphqlTester.queryName("getUserPosts")
+            .variable("userId", 1)
+            .execute()
+            .path("getUserPosts")
+            .entityList(Post::class.java)
+            .get()
+        assert(posts.size == 2) { "There were not 2 posts ${posts.size}" }
+
+        val post1 = posts.firstOrNull { it.id == 10 }
+        val post2 = posts.firstOrNull { it.id == 20 }
+
+        assert(post1 != null) { "Post 10 was not returned" }
+        assert(post2 != null) { "Post 20 was not returned" }
+        assert(post1?.comments?.size == 3) { "Post 10 did not have 3 comments" }
+        assert(post2?.comments?.size == 3) { "Post 20 did not have 3 comments" }
+
+    }
 }
