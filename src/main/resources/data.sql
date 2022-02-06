@@ -1,4 +1,4 @@
-insert into user(id, name)
+insert into user_entity(id, `name`)
 values (1, 'Author'),
        (2, 'Pat'),
        (3, 'Riley'),
