@@ -132,8 +132,8 @@ class PostControllerTest {
 
         assert(post1 != null) { "Post 10 was not returned" }
         assert(post2 != null) { "Post 20 was not returned" }
-        assert(post1?.comments?.size == 3) { "Post 10 did not have 3 comments" }
-        assert(post2?.comments?.size == 3) { "Post 20 did not have 3 comments" }
+        assert(post1?.comments?.size!! >= 3) { "Post 10 did not have 3 comments" }
+        assert(post2?.comments?.size!! >= 3) { "Post 20 did not have 3 comments" }
 
     }
 }
