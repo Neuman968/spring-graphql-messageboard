@@ -16,7 +16,7 @@ To run, simply run
 ./gradlew bootRun
 ```
 
-GraphQLi client is available at 
+GraphiQL client is available at 
 
 `http://localhost:8811/graphiql?path=/graphql`
 
