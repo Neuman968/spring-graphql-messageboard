@@ -1,18 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "2.7.0-SNAPSHOT"
-	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	kotlin("jvm") version "1.6.10"
-	kotlin("plugin.spring") version "1.6.10"
-	kotlin("plugin.jpa") version "1.6.10"
-	kotlin("kapt") version "1.6.10"
+	id("org.springframework.boot") version "2.7.5-SNAPSHOT"
+	id("io.spring.dependency-management") version "1.0.13.RELEASE"
+	kotlin("jvm") version "1.6.21"
+	kotlin("plugin.spring") version "1.6.21"
+	kotlin("plugin.jpa") version "1.6.21"
+	kotlin("kapt") version "1.6.21"
 	idea
 }
 
 group = "com.demo-graphql-spring"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
@@ -21,9 +21,8 @@ repositories {
 }
 
 dependencies {
-	implementation ("org.springframework.boot:spring-boot-starter-graphql")
+	implementation("org.springframework.boot:spring-boot-starter-graphql:2.7.5")
 	implementation ("org.springframework.boot:spring-boot-starter-web")
-	implementation ("org.springframework.boot:spring-boot-starter-hateoas")
 	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation ("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -38,7 +37,6 @@ dependencies {
 	testImplementation("org.springframework:spring-webflux")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
 
-//	kapt("com.querydsl:querydsl-apt:4.4.0:jpa")
 	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
 	kapt("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
 	kapt("javax.annotation:javax.annotation-api")
