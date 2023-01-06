@@ -2,36 +2,27 @@ package com.demographqlspring.messageboard
 
 import com.demographqlspring.messageboard.post.Post
 import com.demographqlspring.messageboard.post.PostRepository
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureHttpGraphQlTester
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.graphql.test.tester.WebGraphQlTester
-import org.springframework.test.web.servlet.client.MockMvcWebTestClient
 import org.springframework.web.context.WebApplicationContext
 
 @SpringBootTest
+@AutoConfigureHttpGraphQlTester
 class PostControllerTest {
 
     @Autowired
     lateinit var context: WebApplicationContext
 
+    @Autowired
     lateinit var graphqlTester: WebGraphQlTester
-
-    @BeforeEach
-    fun setup() {
-        val client = MockMvcWebTestClient.bindToApplicationContext(context)
-            .configureClient()
-            .baseUrl("/graphql")
-            .build()
-
-        graphqlTester = WebGraphQlTester.builder(client).build()
-    }
 
     @Test
     fun `test getPosts expecting 4 posts returned`() {
-        graphqlTester.query(
+        graphqlTester.document(
             """
             query {
                 getPosts {
@@ -53,7 +44,7 @@ class PostControllerTest {
 
     @Test
     fun `test getPosts expecting post with joins returned`() {
-        val postList = graphqlTester.query(
+        val postList = graphqlTester.document(
             """
             query {
                 getPosts {
@@ -96,7 +87,7 @@ class PostControllerTest {
 
     @Test
     fun `test addPost expecting new post added`() {
-        val savedPostId = graphqlTester.query(
+        val savedPostId = graphqlTester.document(
             """
             mutation {
                 addPost(add: { text: "Tests are goood!" }) {
@@ -119,7 +110,7 @@ class PostControllerTest {
 
     @Test
     fun `test get users post passing user expecting posts returned`() {
-        val posts = graphqlTester.queryName("getUserPosts")
+        val posts = graphqlTester.documentName("getUserPosts")
             .variable("userId", 1)
             .execute()
             .path("getUserPosts")

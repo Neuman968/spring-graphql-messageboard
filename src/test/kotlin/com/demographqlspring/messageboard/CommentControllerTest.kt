@@ -2,34 +2,25 @@ package com.demographqlspring.messageboard
 
 import com.demographqlspring.messageboard.comment.AddNewCommentInput
 import com.demographqlspring.messageboard.comment.Comment
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureHttpGraphQlTester
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.graphql.test.tester.WebGraphQlTester
-import org.springframework.test.web.servlet.client.MockMvcWebTestClient
 import org.springframework.web.context.WebApplicationContext
 
 @SpringBootTest
+@AutoConfigureHttpGraphQlTester
 class CommentControllerTest {
     @Autowired
     lateinit var context: WebApplicationContext
 
+    @Autowired
     lateinit var graphqlTester: WebGraphQlTester
-
-    @BeforeEach
-    fun setup() {
-        val client = MockMvcWebTestClient.bindToApplicationContext(context)
-            .configureClient()
-            .baseUrl("/graphql")
-            .build()
-
-        graphqlTester = WebGraphQlTester.builder(client).build()
-    }
 
     @Test
     fun `test get comments expecting 13 comments returned`() {
-        graphqlTester.query(
+        graphqlTester.document(
             """
             query {
                 getComments {
@@ -59,7 +50,7 @@ class CommentControllerTest {
 
     @Test
     fun `test get comment by id expecting 1 comment returned`() {
-        val comment = graphqlTester.queryName("getComment")
+        val comment = graphqlTester.documentName("getComment")
             .variable("id", 180)
             .execute()
             .path("getComment")
@@ -80,7 +71,7 @@ class CommentControllerTest {
 
     @Test
     fun `test get post comment expecting 3 post comments returned`() {
-        graphqlTester.queryName("getPostComments")
+        graphqlTester.documentName("getPostComments")
             .variable("postId", 20)
             .execute()
             .path("getPostComments")
@@ -90,7 +81,7 @@ class CommentControllerTest {
 
     @Test
     fun `test add post comment expecting comment added`() {
-        val addedComment = graphqlTester.queryName("addComment")
+        val addedComment = graphqlTester.documentName("addComment")
             .variable("add", AddNewCommentInput(postId = 10, "Wow very cool!"))
             .execute()
             .path("addComment")
@@ -103,7 +94,7 @@ class CommentControllerTest {
 
     @Test
     fun `test add post comment with post not found expecting comment not added`() {
-        val errors = graphqlTester.queryName("addComment")
+        val errors = graphqlTester.documentName("addComment")
             .variable("add", AddNewCommentInput(postId = 1000, "Wow very cool!"))
             .execute()
             .errors().expect { it.message == "Post: 1000 was not found" }
