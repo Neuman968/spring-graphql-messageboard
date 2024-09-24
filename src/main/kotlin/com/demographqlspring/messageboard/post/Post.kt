@@ -26,8 +26,6 @@ open class Post {
     @Column
     lateinit var text: String
 
-//    @ManyToOne
-//    @JoinColumn(name = "authorUserId", referencedColumnName = "id", insertable = false, updatable = false)
     @Transient
     lateinit var authorUser: UserEntity
 
